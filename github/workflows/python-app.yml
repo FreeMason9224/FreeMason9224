@@ -1,32 +1,8 @@
+import subprocess
 
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+# Activate the virtual environment (again, if needed)
+activate_script = './env/bin/activate'
+exec(open(activate_script).read(), dict(__file__=activate_script))
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
-    - name: Install dependencies
-      run: |
-        python -m venv env
-        source env/bin/activate
-        pip install -r requirements.txt
-
-    - name: Run tests
-      run: |
-        source env/bin/activate
-        # Add your test command here, e.g., pytest
-        pytest
+# Run tests (replace 'pytest' with your specific test command if needed)
+subprocess.check_call(['pytest'])
